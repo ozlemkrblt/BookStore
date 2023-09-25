@@ -10,5 +10,5 @@ public class Book
 
     public int TotalPages { get; set; }  
 
-    public DateTime PublishDate { get; set; } = DateTime.Now; 
+    public DateTime PublishDate { get; set; } 
 }
