@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,26 +12,23 @@ namespace WebApi.BookOperations.GetBookDetail;
     {
     private readonly BookStoreDbContext context;
     public int BookId {  get; set; }
-    public GetBookDetailQuery(BookStoreDbContext context)
+    private readonly IMapper mapper;
+    public GetBookDetailQuery(BookStoreDbContext context, IMapper mapper)
     {
         this.context = context;
+        this.mapper = mapper;
     }
 
     public BookDetailViewModel Handle()
     {
         var book = context.Books.Where(book => book.Id == BookId).SingleOrDefault(); //LinQ
+        
         if(book == null)
         {
             throw new InvalidOperationException("Book not found!");
         }
-        BookDetailViewModel viewModel = new BookDetailViewModel();  
-        viewModel.Title = book.Title;
-        viewModel.PublishDate = book.PublishDate.Date.ToString("dd/MM/yyyy");
-        viewModel.TotalPages = book.TotalPages;
-        viewModel.Genre= ((GenreEnum)book.GenreId).ToString();
-        
-        
-        
+
+        BookDetailViewModel viewModel = mapper.Map<BookDetailViewModel>(book);  
         return viewModel;
     }
     }
