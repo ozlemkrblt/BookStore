@@ -7,7 +7,7 @@ namespace WebApi.BookOperations.DeleteBook
 
         public DeleteBookCommandValidator() { 
 
-            RuleFor(command => command.bookId).GreaterThan(0);
+            RuleFor(command => command.bookId).NotEmpty().GreaterThan(0);
         } 
     }
 }

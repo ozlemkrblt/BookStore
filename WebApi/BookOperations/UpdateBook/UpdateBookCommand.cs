@@ -1,4 +1,5 @@
-﻿using WebApi.DbOperations;
+﻿using AutoMapper;
+using WebApi.DbOperations;
 
 
 
@@ -8,13 +9,14 @@ namespace WebApi.BookOperations.UpdateBook;
     {
    
     private readonly BookStoreDbContext _dbContext;
-
+    private readonly IMapper _mapper;
     public int bookId { get; set; }
 
-    public UpdateBookModel Model { get; set; }  
-    public UpdateBookCommand(BookStoreDbContext dbContext)
+    public UpdateBookModel Model { get; set; }
+    public UpdateBookCommand(BookStoreDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
     }
 
     public void Handle()
@@ -23,8 +25,9 @@ namespace WebApi.BookOperations.UpdateBook;
         if (book is null)
             throw new InvalidOperationException("Book to update is not found!");
 
-        book.GenreId = Model.GenreId != default ? Model.GenreId : book.GenreId; // if there is already data on book,update
-        book.Title = Model.Title != default ? Model.Title : book.Title;
+        book = _mapper.Map<Book>(Model);
+        //book.GenreId = Model.GenreId != default ? Model.GenreId : book.GenreId; // if there is already data on book,update
+        //book.Title = Model.Title != default ? Model.Title : book.Title;
 
         _dbContext.SaveChanges();
     }
