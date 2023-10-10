@@ -19,39 +19,27 @@ namespace WebApi.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
+           
 
-            var watch = Stopwatch.StartNew();
             try
             {
-
-
-                String message = " [Request] HTTP " + context.Request.Method
-                    + " - " + context.Request.Path;
-                logger.Log(message);
                 await next(context);
+                
 
-                watch.Stop();
-
-                message = " [Response] HTTP " + context.Request.Method
-                    + " - " + context.Request.Path
-                    + " responded HTTP Status Code " + context.Response.StatusCode
-                    + " in " + watch.Elapsed.TotalMilliseconds + " ms. ";
-                logger.Log(message);
             }
             catch (Exception ex)
             {
-                watch.Stop();
-                await HandleException(context, ex, watch);
+                await HandleException(context, ex);
             }
         }
 
-        private Task HandleException(HttpContext context, Exception ex, Stopwatch watch)
+        private Task HandleException(HttpContext context, Exception ex)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             string message = " [Error] HTTP " + context.Request.Method + " - " + context.Response.StatusCode
-                + " Error Message " + ex.Message + " in " + watch.ElapsedMilliseconds + " ms. ";
+                + " Error Message " + ex.Message;
             logger.Log(message);
 
 
