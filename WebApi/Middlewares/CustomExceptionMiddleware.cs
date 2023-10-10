@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using Newtonsoft.Json;
+using WebApi.Services;
 
 namespace WebApi.Middlewares
 {
@@ -8,9 +9,12 @@ namespace WebApi.Middlewares
     {
 
         private readonly RequestDelegate next;
-        public CustomExceptionMiddleware(RequestDelegate next)
+
+        ILoggerService logger;
+        public CustomExceptionMiddleware(RequestDelegate next, ILoggerService logger)
         {
             this.next = next;
+            this.logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -19,11 +23,11 @@ namespace WebApi.Middlewares
             var watch = Stopwatch.StartNew();
             try
             {
-                
+
 
                 String message = " [Request] HTTP " + context.Request.Method
                     + " - " + context.Request.Path;
-                Console.WriteLine(message);
+                logger.Log(message);
                 await next(context);
 
                 watch.Stop();
@@ -32,11 +36,12 @@ namespace WebApi.Middlewares
                     + " - " + context.Request.Path
                     + " responded HTTP Status Code " + context.Response.StatusCode
                     + " in " + watch.Elapsed.TotalMilliseconds + " ms. ";
-                Console.WriteLine(message);
-            }catch(Exception ex)
+                logger.Log(message);
+            }
+            catch (Exception ex)
             {
                 watch.Stop();
-                await HandleException(context,ex,watch);
+                await HandleException(context, ex, watch);
             }
         }
 
@@ -44,14 +49,14 @@ namespace WebApi.Middlewares
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            
-            string message = " [Error] HTTP " + context.Request.Method + " - " + context.Response.StatusCode 
+
+            string message = " [Error] HTTP " + context.Request.Method + " - " + context.Response.StatusCode
                 + " Error Message " + ex.Message + " in " + watch.ElapsedMilliseconds + " ms. ";
-            Console.WriteLine(message);
-            
+            logger.Log(message);
+
 
             var result = JsonConvert.SerializeObject(new { error = ex.Message }, Formatting.None);
-            
+
             return context.Response.WriteAsync(result);
         }
     }
