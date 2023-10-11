@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApi;
+namespace WebApi.Entities;
 
 public class Book
 {
@@ -10,6 +10,7 @@ public class Book
     public string Title { get; set; }  
 
     public int GenreId { get; set; } //Id'yi entityden alacak 
+    public Genre Genre { get; set; }
 
     public int TotalPages { get; set; }  
 

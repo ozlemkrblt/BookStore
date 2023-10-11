@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using WebApi.Common;
 using WebApi.DbOperations;
 
-namespace WebApi.BookOperations.GetBookDetail;
+namespace WebApi.Application.BookOperations.Queries.GetBookDetail;
 
     public class GetBookDetailQuery
     {
@@ -21,7 +17,7 @@ namespace WebApi.BookOperations.GetBookDetail;
 
     public BookDetailViewModel Handle()
     {
-        var book = context.Books.Where(book => book.Id == BookId).SingleOrDefault(); //LinQ
+        var book = context.Books.Include(x => x.Genre).Where(book => book.Id == BookId).SingleOrDefault(); //LinQ
         
         if(book == null)
         {

@@ -1,4 +1,4 @@
-﻿namespace WebApi.BookOperations.CreateBook;
+﻿namespace WebApi.Application.BookOperations.Commands.CreateBook;
 
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebApi.Common;
 using WebApi.DbOperations;
-
+using WebApi.Entities;
 
 //Burada ViewModel kullanmayacağız, çünkü sadece kullanıcıya dönmüyoruz.
 public class CreateBookCommand
@@ -30,10 +30,10 @@ public class CreateBookCommand
             throw new InvalidOperationException("Book already exists!");
 
         book = mapper.Map<Book>(Model); //new Book();
-        //book.Title = Model.Title;
-        //book.PublishDate = Model.PublishDate;
-        //book.GenreId=Model.GenreId;
-        //book.TotalPages=Model.TotalPages;
+        //book.Title = model.Title;
+        //book.PublishDate = model.PublishDate;
+        //book.GenreId=model.GenreId;
+        //book.TotalPages=model.TotalPages;
 
         dbContext.Books.Add(book);
         dbContext.SaveChanges();

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using WebApi.Common;
 
-namespace WebApi.BookOperations.UpdateBook
+namespace WebApi.Application.BookOperations.Commands.UpdateBook
 {
     public class UpdateBookCommandValidator : AbstractValidator<UpdateBookCommand>
     {

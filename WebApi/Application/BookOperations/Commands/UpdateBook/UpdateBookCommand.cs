@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using WebApi.DbOperations;
+using WebApi.Entities;
 
 
-
-namespace WebApi.BookOperations.UpdateBook;
+namespace WebApi.Application.BookOperations.Commands.UpdateBook;
 
     public class UpdateBookCommand
     {
@@ -26,15 +26,15 @@ namespace WebApi.BookOperations.UpdateBook;
             throw new InvalidOperationException("Book to update is not found!");
 
         book = _mapper.Map<Book>(Model);
-        //book.GenreId = Model.GenreId != default ? Model.GenreId : book.GenreId; // if there is already data on book,update
-        //book.Title = Model.Title != default ? Model.Title : book.Title;
+        //book.GenreId = model.GenreId != default ? model.GenreId : book.GenreId; // if there is already data on book,update
+        //book.Title = model.Title != default ? model.Title : book.Title;
 
         _dbContext.SaveChanges();
     }
 }
 
 
-//Model daha anlamlıdır, çünkü sadece belli propertyleri update etmek isteriz.
+//model daha anlamlıdır, çünkü sadece belli propertyleri update etmek isteriz.
 
 public class UpdateBookModel
 {

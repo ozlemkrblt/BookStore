@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace WebApi.BookOperations.CreateBook;
+namespace WebApi.Application.BookOperations.Commands.CreateBook;
     public class CreateBookCommandValidator : AbstractValidator<CreateBookCommand>
     {
     public CreateBookCommandValidator() {
