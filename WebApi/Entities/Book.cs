@@ -15,4 +15,6 @@ public class Book
     public int TotalPages { get; set; }  
 
     public DateTime PublishDate { get; set; } 
+
+    public List<Author> Authors { get; set; }   = new List<Author>();   
 }

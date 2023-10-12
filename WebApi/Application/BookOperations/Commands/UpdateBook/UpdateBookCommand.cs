@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WebApi.DbOperations;
 using WebApi.Entities;
 
@@ -24,10 +25,20 @@ namespace WebApi.Application.BookOperations.Commands.UpdateBook;
         var book = _dbContext.Books.SingleOrDefault(x => x.Id == bookId);
         if (book is null)
             throw new InvalidOperationException("Book to update is not found!");
-
         book = _mapper.Map<Book>(Model);
-        //book.GenreId = model.GenreId != default ? model.GenreId : book.GenreId; // if there is already data on book,update
-        //book.Title = model.Title != default ? model.Title : book.Title;
+
+        
+        if (Model.AuthorIds != null && Model.AuthorIds.Any())
+        {
+            // If there are new authors to be updated, clear the Authors list in book, and update it 
+            book.Authors.Clear();
+            var authors = _dbContext.Authors.Where(a => Model.AuthorIds.Contains(a.Id)).ToList();
+
+            foreach (var author in authors)
+            {
+                book.Authors.Add(author);
+            }
+        }
 
         _dbContext.SaveChanges();
     }
@@ -40,5 +51,6 @@ public class UpdateBookModel
 {
     public string Title { get; set; }
     public int GenreId { get; set; }
+    public List<int> AuthorIds { get; set; }    = new List<int>();
 
 }

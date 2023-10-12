@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\GenreOperations\NewFolder\**" />
+    <Content Remove="Application\GenreOperations\NewFolder\**" />
+    <EmbeddedResource Remove="Application\GenreOperations\NewFolder\**" />
+    <None Remove="Application\GenreOperations\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
@@ -15,10 +22,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	 <PackageReference Include="FluentValidation" Version="11.7.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\GenreOperations\NewFolder\" />
   </ItemGroup>
 
 </Project>

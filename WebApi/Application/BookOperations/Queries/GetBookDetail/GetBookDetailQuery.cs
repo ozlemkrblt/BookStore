@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebApi.DbOperations;
+using WebApi.Entities;
 
 namespace WebApi.Application.BookOperations.Queries.GetBookDetail;
 
@@ -17,7 +18,7 @@ namespace WebApi.Application.BookOperations.Queries.GetBookDetail;
 
     public BookDetailViewModel Handle()
     {
-        var book = context.Books.Include(x => x.Genre).Where(book => book.Id == BookId).SingleOrDefault(); //LinQ
+        var book = context.Books.Include(x => x.Genre).Include(x => x.Authors).Where(book => book.Id == BookId).SingleOrDefault(); //LinQ
         
         if(book == null)
         {
@@ -37,9 +38,9 @@ public class BookDetailViewModel
 
     public String PublishDate { get; set; }
 
-    //GenreId ve Id dönmeyeceğiz, UI'ya döneceğimiz verileri yazdık. 
-
     public string Genre { get; set; }
+
+    public List<Author> Authors { get; set; } = new List<Author>();
 }
 
 

@@ -29,11 +29,15 @@ public class CreateBookCommand
         if (book is not null)
             throw new InvalidOperationException("Book already exists!");
 
-        book = mapper.Map<Book>(Model); //new Book();
-        //book.Title = model.Title;
-        //book.PublishDate = model.PublishDate;
-        //book.GenreId=model.GenreId;
-        //book.TotalPages=model.TotalPages;
+        book = mapper.Map<Book>(Model);
+
+        var authors = dbContext.Authors.Where(a => Model.AuthorIds.Contains(a.Id)).ToList();
+
+        foreach (var author in authors)
+        {
+            book.Authors.Add(author); 
+        }
+
 
         dbContext.Books.Add(book);
         dbContext.SaveChanges();
@@ -47,6 +51,8 @@ public class CreateBookModel
 
     public int TotalPages {  get; set; }   
     public DateTime PublishDate { get; set; }
+
+    public List<int> AuthorIds { get; set; }
 }
 
 

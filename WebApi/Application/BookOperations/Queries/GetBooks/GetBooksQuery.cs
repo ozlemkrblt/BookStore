@@ -20,16 +20,7 @@ public class GetBooksQuery
 	{
         var orderedBookList = _dbContext.Books.Include(x=> x.Genre).OrderBy(x => x.Id).ToList<Book>(); //LinQ
 		List<BooksViewModel> vm = _mapper.Map < List<BooksViewModel>>(orderedBookList);//new List<BooksViewModel>();
-		//foreach (var book in orderedBookList)
-		//{
-		//	vm.Add(new BooksViewModel()
-		//	{
-		//		Title = book.Title,
-		//		Genre = ((GenreEnum)book.GenreId).ToString(),
-		//		PublishDate = book.PublishDate.Date.ToString("dd/MM/yyy"), //sadece tarih kısmını alacağız.
-		//		TotalPages = book.TotalPages,
-		//	});
-		//}
+
 		return vm;
     }
 
@@ -48,4 +39,5 @@ public class BooksViewModel
 	//GenreId ve Id dönmeyeceğiz, UI'ya döneceğimiz verileri yazdık. 
 
 	public string Genre { get; set; }
+
 }
