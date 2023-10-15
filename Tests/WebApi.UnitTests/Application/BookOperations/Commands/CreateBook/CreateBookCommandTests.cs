@@ -3,7 +3,8 @@ using FluentAssertions;
 using WebApi.Application.BookOperations.Commands.CreateBook;
 using WebApi.DbOperations;
 using WebApi.Entities;
-using WebApi.UnitTests.TestSetup;
+
+namespace WebApi.UnitTests.Application.BookOperations.Commands.CreateBook;
 public class CreateBookCommandTests : IClassFixture<CommonTestFixture>
 { 
     private readonly BookStoreDbContext context;

@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using WebApi.Common;
-using WebApi.DbOperations;
-using WebApi.Entities;
+﻿using WebApi.DbOperations;
 
 namespace WebApi.Application.BookOperations.Commands.DeleteBook;
 public class DeleteBookCommand

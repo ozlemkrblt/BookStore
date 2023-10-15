@@ -5,12 +5,11 @@ using WebApi.Entities;
 using WebApi.UnitTests.TestSetup;
 
 namespace WebApi.UnitTests.Application.BookOperations.Commands.CreateBook;
-public class CreateBookCommandValidatorTests : IClassFixture<CommonTestFixture
->
+public class CreateBookCommandValidatorTests : IClassFixture<CommonTestFixture>
 {
 
     [Theory]
-    [InlineData("Lord of The Rings",0,-1)]
+    [InlineData("Lord of The Rings", 0, -1)]
     [InlineData("Lord of The Rings", 0, 1)]
     [InlineData("Lord of The Rings", 1, -1)]
     [InlineData("", 0, -1)]
@@ -24,23 +23,24 @@ public class CreateBookCommandValidatorTests : IClassFixture<CommonTestFixture
     public void WhenInvalidInputAreGiven_Validator_ShouldReturnErrors(string title, int totalPages, int genreId)
     {
         //arrange
-        CreateBookCommand command = new CreateBookCommand(null,null);
-        command.Model = new CreateBookModel() 
-        { Title = title,
-        TotalPages = totalPages,
-        PublishDate = DateTime.Now.Date.AddYears(-1),
-        GenreId= -genreId
+        CreateBookCommand command = new CreateBookCommand(null, null);
+        command.Model = new CreateBookModel()
+        {
+            Title = title,
+            TotalPages = totalPages,
+            PublishDate = DateTime.Now.Date.AddYears(-1),
+            GenreId = -genreId
 
         };
 
         //act
-        CreateBookCommandValidator validator=new CreateBookCommandValidator();
-        var result= validator.Validate(command);    
+        CreateBookCommandValidator validator = new CreateBookCommandValidator();
+        var result = validator.Validate(command);
 
 
         //assert 
         result.Errors.Count.Should().BeGreaterThan(0);
-       
+
     }
 
     [Fact]
