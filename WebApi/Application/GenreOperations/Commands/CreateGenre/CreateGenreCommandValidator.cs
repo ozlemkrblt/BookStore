@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WebApi.DbOperations;
 using WebApi.Entities;
 
@@ -8,9 +9,9 @@ public class CreateGenreCommand
 {
     public CreateGenreModel model { get; set; }
 
-    private readonly BookStoreDbContext context;
+    private readonly IBookStoreDbContext context;
 
-    public CreateGenreCommand(BookStoreDbContext bookStoreDbContext)
+    public CreateGenreCommand(IBookStoreDbContext bookStoreDbContext)
     {
         this.context = bookStoreDbContext;
 

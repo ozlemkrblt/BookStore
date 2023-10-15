@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WebApi.DbOperations;
 
 namespace WebApi.Application.GenreOperations.Commands.DeleteGenre;
@@ -8,9 +9,9 @@ public class DeleteGenreCommand
 
     public int GenreId { get; set; }
 
-    private readonly BookStoreDbContext context;
+    private readonly IBookStoreDbContext context;
 
-    public DeleteGenreCommand( BookStoreDbContext context)
+    public DeleteGenreCommand( IBookStoreDbContext context)
     {
         this.context = context;
     }

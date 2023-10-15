@@ -4,10 +4,10 @@ using WebApi.DbOperations;
 namespace WebApi.Application.AuthorOperations.Queries.GetAuthorDetails;
 public class GetAuthorDetailsQuery
 {
-    private readonly BookStoreDbContext context;
+    private readonly IBookStoreDbContext context;
     public int AuthorId { get; set; }
     private readonly IMapper mapper;
-    public GetAuthorDetailsQuery(BookStoreDbContext context, IMapper mapper)
+    public GetAuthorDetailsQuery(IBookStoreDbContext context, IMapper mapper)
     {
         this.context = context;
         this.mapper = mapper;

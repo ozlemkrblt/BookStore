@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WebApi.DbOperations;
 using WebApi.Entities;
 
@@ -9,10 +10,10 @@ public class CreateAuthorCommand
 {
 
     public CreateAuthorModel Model { get; set; }
-    private readonly BookStoreDbContext dbContext;
+    private readonly IBookStoreDbContext dbContext;
     private readonly IMapper mapper;
 
-    public CreateAuthorCommand(BookStoreDbContext dbContext, IMapper mapper)
+    public CreateAuthorCommand(IBookStoreDbContext dbContext, IMapper mapper)
     {
         this.dbContext = dbContext;
         this.mapper = mapper;

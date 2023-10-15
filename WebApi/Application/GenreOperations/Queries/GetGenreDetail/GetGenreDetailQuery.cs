@@ -6,11 +6,11 @@ using WebApi.DbOperations;
 
 public class GetGenreDetailQuery
 {
-    public readonly BookStoreDbContext context;
+    public readonly IBookStoreDbContext context;
     public readonly IMapper mapper;
     public int genreId { get; set; }
 
-    public GetGenreDetailQuery(BookStoreDbContext context, IMapper mapper)
+    public GetGenreDetailQuery(IBookStoreDbContext context, IMapper mapper)
     {
 
         this.context = context;

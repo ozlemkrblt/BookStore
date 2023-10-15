@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WebApi.DbOperations;
 
 namespace WebApi.Application.GenreOperations.Commands.UpdateGenre;
@@ -10,9 +11,9 @@ public class UpdateGenreCommand
 
     public UpdateGenreModel model { get; set; }
 
-    private readonly BookStoreDbContext context;
+    private readonly IBookStoreDbContext context;
 
-    public UpdateGenreCommand(BookStoreDbContext context)
+    public UpdateGenreCommand(IBookStoreDbContext context)
     {
         this.context = context;
     }
