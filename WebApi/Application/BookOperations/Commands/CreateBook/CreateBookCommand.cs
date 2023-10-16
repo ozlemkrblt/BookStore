@@ -1,13 +1,8 @@
-﻿namespace WebApi.Application.BookOperations.Commands.CreateBook;
-
-using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using WebApi.Common;
+﻿using AutoMapper;
 using WebApi.DbOperations;
 using WebApi.Entities;
+
+namespace WebApi.Application.BookOperations.Commands.CreateBook;
 
 //Burada ViewModel kullanmayacağız, çünkü sadece kullanıcıya dönmüyoruz.
 public class CreateBookCommand

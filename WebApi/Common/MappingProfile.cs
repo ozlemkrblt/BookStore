@@ -12,6 +12,7 @@ using WebApi.Application.AuthorOperations.Commands.CreateAuthor;
 using WebApi.Application.AuthorOperations.Queries.GetAuthors;
 using WebApi.Application.AuthorOperations.Queries.GetAuthorDetails;
 using WebApi.Application.AuthorOperations.Commands.UpdateAuthor;
+using WebApi.Application.UserOperations.Commands.CreateUser;
 
 namespace WebApi.Common;
 public class MappingProfile : Profile
@@ -38,6 +39,8 @@ public class MappingProfile : Profile
         .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.BirthDate.Date.ToString("dd/MM/yyy")));
 
         CreateMap<UpdateAuthorModel, Author>();
+
+        CreateMap<CreateUserModel, User>();
     }
 
 
