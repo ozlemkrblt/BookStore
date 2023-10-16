@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using WebApi.DbOperations;
 
 namespace WebApi.Application.AuthorOperations.Commands.DeleteAuthor;
