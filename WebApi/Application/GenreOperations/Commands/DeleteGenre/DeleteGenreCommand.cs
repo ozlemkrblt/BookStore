@@ -21,7 +21,7 @@ public class DeleteGenreCommand
         var genre = context.Genres.SingleOrDefault(x => x.Id == GenreId);
         if  (genre is null )
         {
-            throw new InvalidOperationException("Genre not found!");
+            throw new InvalidOperationException("Genre to delete is not found!");
         }
 
         context.Genres.Remove(genre);

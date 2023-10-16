@@ -1,39 +1,15 @@
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using WebApi.DbOperations;
-using WebApi.Entities;
+using FluentValidation;
 
 namespace WebApi.Application.GenreOperations.Commands.CreateGenre;
 
-public class CreateGenreCommand
+public class CreateGenreCommandValidator : AbstractValidator<CreateGenreCommand>
 {
-    public CreateGenreModel model { get; set; }
 
-    private readonly IBookStoreDbContext context;
-
-    public CreateGenreCommand(IBookStoreDbContext bookStoreDbContext)
+    public CreateGenreCommandValidator()
     {
-        this.context = bookStoreDbContext;
+        RuleFor(command => command.model.Name).NotEmpty().MinimumLength(4);
 
     }
 
-
-    public void Handle()
-    {
-        var genre = context.Genres.SingleOrDefault(x => x.Name == model.Name);
-        if (genre is not null)
-            throw new InvalidOperationException("Genre already exists!");
-
-
-        genre = new Genre();
-        genre.Name = model.Name;
-        context.Genres.Add(genre);
-        context.SaveChanges();
-    }
 }
 
-
-public class CreateGenreModel {
-
-    public string Name { get; set; }
-} 

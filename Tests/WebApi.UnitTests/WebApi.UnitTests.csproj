@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\NewFolder\**" />
+    <EmbeddedResource Remove="Application\NewFolder\**" />
+    <None Remove="Application\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.11" />

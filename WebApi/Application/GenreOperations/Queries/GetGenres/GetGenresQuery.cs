@@ -1,11 +1,5 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using WebApi.Common;
 using WebApi.DbOperations;
-using WebApi.Entities;
-
 
 namespace WebApi.Application.GenreOperations.Queries.GetGenres;
 
