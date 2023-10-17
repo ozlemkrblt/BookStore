@@ -23,9 +23,8 @@ public class CreateUserCommand
             throw new InvalidOperationException("User already exists!");
 
         user = mapper.Map<User>(Model);
-
-
-        dbContext.SaveChanges();
+        dbContext.Users.Add(user);
+        dbContext.SaveChanges(); 
     }
 }
 

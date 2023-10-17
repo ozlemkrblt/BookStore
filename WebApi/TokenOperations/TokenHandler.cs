@@ -8,24 +8,24 @@ using WebApi.TokenOperations.Models;
 namespace WebApi.TokenOperations;
 public class TokenHandler
 {
-    readonly IConfiguration Configuration;
+    readonly IConfiguration _configuration;
 
-    public TokenHandler(IConfiguration Configuration)
+    public TokenHandler(IConfiguration configuration)
     {
-        this.Configuration = Configuration;
+        _configuration = configuration;
     }
 
     //Create encoded credentials
     public Token CreateAccessToken(User user)
     {
         Token tokenModel = new Token();
-        SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Token:SecurityKey"]));
+        SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Token:SecurityKey"]));
         SigningCredentials sCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         tokenModel.Expiration = DateTime.Now.AddMinutes(15);
 
         JwtSecurityToken securityToken = new JwtSecurityToken(
-            issuer: Configuration["Token:Issuer"],
-            audience: Configuration["Token:Audience"],
+            issuer: _configuration["Token:Issuer"],
+            audience: _configuration["Token:Audience"],
             expires: tokenModel.Expiration,
             notBefore: DateTime.Now,
             signingCredentials: sCredentials

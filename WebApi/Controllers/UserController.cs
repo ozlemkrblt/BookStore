@@ -5,17 +5,19 @@ using FluentValidation;
 using WebApi.Application.UserOperations.Commands.CreateUser;
 using Microsoft.Extensions.Configuration;
 using WebApi.Application.UserOperations.Commands.CreateToken;
+using WebApi.Application.UserOperations.Commands.RefreshToken;
 using WebApi.TokenOperations.Models;
+using Microsoft.AspNetCore.Authorization;
 //using WebApi.Application.UserOperations.Commands.DeleteUser;
 //using WebApi.Application.UserOperations.Commands.UpdateUser;
 
 namespace WebApi.AddControllers;
-
+[Authorize]
 [ApiController]
 [Route("[controller]s")]
 public class UserController : Controller
 {
-    private readonly IBookStoreDbContext _context; 
+    private readonly IBookStoreDbContext _context;
 
     private readonly IMapper _mapper;
 
@@ -32,7 +34,7 @@ public class UserController : Controller
     public IActionResult AddUser([FromBody] CreateUserModel newUser)
     {
         CreateUserCommand command = new CreateUserCommand(_context, _mapper);
-        
+
         command.Model = newUser;
         CreateUserCommandValidator validator = new CreateUserCommandValidator();
         validator.ValidateAndThrow(command);
@@ -44,12 +46,26 @@ public class UserController : Controller
     [HttpPost("connect/token")]
     public ActionResult<Token> CreateToken([FromBody] CreateTokenModel login)
     {
-        CreateTokenCommand command = new CreateTokenCommand(_context, _mapper,_configuration);
+        CreateTokenCommand command = new CreateTokenCommand(_context, _mapper, _configuration);
 
         command.Model = login;
 
         var token = command.Handle();
-        return token; 
+        return token;
+
+
+    }
+
+
+    [HttpGet("refreshToken")]
+    public ActionResult<Token> RefreshToken([FromQuery] String token)
+    {
+        RefreshTokenCommand command = new RefreshTokenCommand(_context, _configuration);
+
+        command.RefreshToken = token;
+
+        var resultToken = command.Handle();
+        return resultToken;
 
 
     }

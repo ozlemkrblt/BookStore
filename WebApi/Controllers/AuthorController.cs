@@ -7,9 +7,11 @@ using WebApi.Application.AuthorOperations.Commands.UpdateAuthor;
 using WebApi.Application.AuthorOperations.Commands.DeleteAuthor;
 using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.AddControllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]s")]
 public class AuthorController : ControllerBase
